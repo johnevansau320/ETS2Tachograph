@@ -1,0 +1,14 @@
+# Build output
+bin/
+obj/
+dist/
+publish/
+
+# IDE / user files
+.vs/
+.vscode/
+*.user
+*.suo
+
+# Installers and packaged builds are published as GitHub release assets, not committed
+*.exe
