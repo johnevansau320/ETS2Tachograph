@@ -1,5 +1,5 @@
 #define AppName "ETS2 Tachograph"
-#define AppVersion "1.4.0"
+#define AppVersion "1.5.0"
 #define AppExe "Ets2Tachograph.exe"
 #ifndef SourceDir
   #define SourceDir "..\dist"
@@ -25,6 +25,7 @@ SolidCompression=yes
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 WizardStyle=modern
+SetupIconFile=..\src\Tachograph.App\Assets\app.ico
 UninstallDisplayIcon={app}\{#AppExe}
 CloseApplications=yes
 

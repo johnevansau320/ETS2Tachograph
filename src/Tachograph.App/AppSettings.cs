@@ -15,6 +15,11 @@ public sealed class AppSettings
     /// <summary>Off by default: the check contacts GitHub, so the user opts in.</summary>
     public bool CheckUpdatesAtStartup { get; set; } = false;
     public bool AlwaysOnTop { get; set; } = true;
+    /// <summary>Width of the instrument window; the height follows the fixed aspect ratio.</summary>
+    public double WindowWidth { get; set; } = 460;
+    /// <summary>Last screen position of the instrument window; null until it has been closed once.</summary>
+    public double? WindowLeft { get; set; }
+    public double? WindowTop { get; set; }
     public MapperSettings Mapper { get; set; } = new();
 
     /// <summary>Action name to key combination. An empty string means "unassigned".</summary>

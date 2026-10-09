@@ -43,6 +43,8 @@ public partial class MainWindow : Window
         SpeechItem.IsChecked = _settings.SpeechEnabled;
         TopItem.IsChecked = Topmost = _settings.AlwaysOnTop;
         VersionItem.Header = $"ETS2 Tachograph v{Version}";
+        SetWidth(_settings.WindowWidth);
+        RestorePosition();
         UpdateHotkeyHint();
 
         _timer.Tick += async (_, _) => await PollAsync();
@@ -64,6 +66,7 @@ public partial class MainWindow : Window
             _history?.Close();
             _hotkeys?.Dispose();
             SessionStore.Save(_engine.State);
+            if (WindowState == WindowState.Normal) { _settings.WindowLeft = Left; _settings.WindowTop = Top; }
             _settings.Save();
             _client.Dispose();
             _chime.Dispose();
@@ -216,6 +219,42 @@ public partial class MainWindow : Window
     }
 
     // --- UI events ---
+    // The instrument is designed at 460 x 300 and scales uniformly, so resizing keeps that aspect ratio.
+    private const double DesignWidth = 460, DesignHeight = 300, MinInstrumentWidth = 300, MaxInstrumentWidth = 1400;
+
+    private void SetWidth(double width)
+    {
+        width = Math.Clamp(double.IsFinite(width) ? width : DesignWidth, MinInstrumentWidth, MaxInstrumentWidth);
+        Width = width;
+        Height = width * DesignHeight / DesignWidth;
+        _settings.WindowWidth = width;
+    }
+
+    /// <summary>Puts the window back where it was, pulled onto the desktop if that screen is gone.</summary>
+    private void RestorePosition()
+    {
+        if (_settings.WindowLeft is not double left || _settings.WindowTop is not double top
+            || !double.IsFinite(left) || !double.IsFinite(top)) return;
+
+        double vl = SystemParameters.VirtualScreenLeft, vt = SystemParameters.VirtualScreenTop;
+        double vw = SystemParameters.VirtualScreenWidth, vh = SystemParameters.VirtualScreenHeight;
+        const double stayVisible = 120; // at least this much of the window must remain on the desktop
+        left = Math.Clamp(left, vl - Width + stayVisible, vl + vw - stayVisible);
+        top = Math.Clamp(top, vt, vt + vh - stayVisible);
+
+        WindowStartupLocation = WindowStartupLocation.Manual;
+        Left = left;
+        Top = top;
+    }
+
+    private void Grip_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+    {
+        // use whichever drag direction moved more, so diagonal drags feel natural
+        double delta = Math.Abs(e.HorizontalChange) >= Math.Abs(e.VerticalChange * DesignWidth / DesignHeight)
+            ? e.HorizontalChange : e.VerticalChange * DesignWidth / DesignHeight;
+        SetWidth(Width + delta);
+    }
+
     private void Drag(object sender, MouseButtonEventArgs e) { if (e.ButtonState == MouseButtonState.Pressed) DragMove(); }
     private void Close_Click(object sender, RoutedEventArgs e) => Close();
     private void History_Click(object sender, RoutedEventArgs e) => ToggleHistory();

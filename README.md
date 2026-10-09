@@ -1,5 +1,7 @@
 # ETS2 Tachograph
 
+<img src="src/Tachograph.App/Assets/app-icon-256.png" alt="ETS2 Tachograph icon" width="96" align="right">
+
 A digital tachograph for **Euro Truck Simulator 2** that tracks your driving time against the EU driver-hours rules (Regulation (EC) 561/2006), warns you before you need to stop, and shows it all on a dark, DTCO 4.0-style instrument.
 
 It runs as a companion app. It reads live data from the [TruckSim GPS Telemetry Server](https://github.com/TruckSim-GPS/trucksim-gps-server) (default `http://localhost:31377`), so that server must be running while you play.
@@ -20,6 +22,7 @@ It runs as a companion app. It reads live data from the [TruckSim GPS Telemetry 
 - **28-day history view** with a 24-hour activity chart, daily and weekly totals, infringements, and CSV export.
 - **Global hotkeys** for everything (status, today's summary, history, previous/next day, voice on/off, show/hide, silence), all reassignable. They work while the game has focus.
 - **Tuning options:** traffic-light hold time, voice volume and speed, chime on/off.
+- **Resizable instrument:** drag the grip in the bottom-right corner; the window remembers its size and screen position.
 
 ## Install
 

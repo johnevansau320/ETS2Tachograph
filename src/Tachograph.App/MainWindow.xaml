@@ -34,6 +34,9 @@
         </Style>
     </Window.Resources>
 
+    <Grid>
+    <Viewbox Stretch="Uniform">
+    <Grid Width="460" Height="300">
     <Border Background="{StaticResource Bezel}" CornerRadius="14" Padding="10"
             BorderBrush="#2A2E33" BorderThickness="1">
         <Grid>
@@ -143,6 +146,21 @@
                     BorderThickness="0" Click="Close_Click" ToolTip="Quit"/>
         </Grid>
     </Border>
+    </Grid>
+    </Viewbox>
+
+    <Thumb x:Name="Grip" Width="22" Height="22" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+           Cursor="SizeNWSE" Opacity="0.55" ToolTip="Drag to resize" DragDelta="Grip_DragDelta">
+        <Thumb.Template>
+            <ControlTemplate TargetType="Thumb">
+                <Grid Background="Transparent">
+                    <Path Data="M18,6 L6,18 M18,11 L11,18 M18,16 L16,18" Stroke="#7C8791" StrokeThickness="2"
+                          StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                </Grid>
+            </ControlTemplate>
+        </Thumb.Template>
+    </Thumb>
+    </Grid>
 
     <Window.ContextMenu>
         <ContextMenu>
