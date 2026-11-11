@@ -76,6 +76,10 @@ ISCC.exe /DSourceDir=publish /DOutDir=dist installer/Ets2Tachograph.iss
 - A stop with the engine running counts as Driving for a short hold (default 10 game minutes), then Work.
 - Engine off with the parking brake on counts as Rest immediately.
 
+## Support
+
+These apps are free and stay free. If they've made your hauls better and you'd like to say thanks, you can [buy me a coffee](https://buymeacoffee.com/johnevansau320). More apps and mods: [johnevansau.com](https://johnevansau.com).
+
 ## Licence
 
 [MIT](LICENSE)
